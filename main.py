@@ -25,71 +25,46 @@ def binary_search(mylist, key):
 	return _binary_search(mylist, key, 0, len(mylist)-1)
 
 def _binary_search(mylist, key, left, right):
-	"""
-	Recursive implementation of binary search.
-
-	Params:
-	  mylist....list to search
-	  key.......search key
-	  left......left index into list to search
-	  right.....right index into list to search
-
-	Returns:
-	  index of key in mylist, or -1 if not present.
-	"""
-	### TODO
-
-	###
+    if right >= left:
+        m = left+(right-left)//2
+        if mylist[m] == key: 
+          return m
+        elif mylist[m] > key:
+            return _binary_search(mylist, key, left, m-1)
+        else:
+            return _binary_search(mylist, key, m+1, right)
+    else:
+        return -1
 
 def test_binary_search():
-	assert binary_search([1,2,3,4,5], 5) == 4
-	assert binary_search([1,2,3,4,5], 1) == 0
-	assert binary_search([1,2,3,4,5], 6) == -1
-	### TODO: add two more tests here.
 
-	###
+  assert binary_search([1,2,3,4,5], 5) == 4
+  assert binary_search([1,2,3,4,5], 1) == 0
+  assert binary_search([1,2,3,4,5], 6) == -1
 
+  assert binary_search([1,400,400,400,500,1000,11000], 1) == 0
+  assert binary_search([1,2,33,12,400,3333,11111,10000011], 123) == -1
 
 def time_search(search_fn, mylist, key):
-	"""
-	Return the number of milliseconds to run this
-	search function on this list.
+  start_time = time.time()
+  search_fn(mylist, key)
+  end_time = time.time()
 
-	Note 1: `sort_fn` parameter is a function.
-	Note 2: time.time() returns the current time in seconds. 
-	You'll have to multiple by 1000 to get milliseconds.
-
-	Params:
-	  sort_fn.....the search function
-	  mylist......the list to search
-	  key.........the search key 
-
-	Returns:
-	  the number of milliseconds it takes to run this
-	  search function on this input.
-	"""
-	### TODO
-
-	###
+  ms = (end_time - start_time) * 1000
+  
+  return ms
 
 def compare_search(sizes=[1e1, 1e2, 1e3, 1e4, 1e5, 1e6, 1e7]):
-	"""
-	Compare the running time of linear_search and binary_search
-	for input sizes as given. The key for each search should be
-	-1. The list to search for each size contains the numbers from 0 to n-1,
-	sorted in ascending order. 
+  l = list()
 
-	You'll use the time_search function to time each call.
-
-	Returns:
-	  A list of tuples of the form
-	  (n, linear_search_time, binary_search_time)
-	  indicating the number of milliseconds it takes
-	  for each method to run on each value of n
-	"""
-	### TODO
-
-	###
+  for n in sizes:
+    test_list = range(1, int(round(n)))
+    test_key = 0
+    liniar_search_time = time_search(linear_search, test_list, test_key)
+    binary_search_time = time_search(binary_search, test_list, test_key)
+    t = (n, liniar_search_time, binary_search_time)
+    l.append(t)
+  return l
 
 def print_results(results):
 	""" done """

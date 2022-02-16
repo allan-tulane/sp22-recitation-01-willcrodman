@@ -9,12 +9,13 @@ def test_compare_search():
 	assert res[1][1] < 1
 
 def test_binary_search():
-	assert binary_search([1,2,3,4,5], 5) == 4
-	assert binary_search([1,2,3,4,5], 1) == 0
-	assert binary_search([1,2,3,4,5], 6) == -1
-	### TODO: add two more tests here.
+  assert binary_search([1,2,3,4,5], 5) == 4
+  assert binary_search([1,2,3,4,5], 1) == 0
+  assert binary_search([1,2,3,4,5], 6) == -1
 
-	###
+  assert binary_search([1,400,400,400,500,1000,11000], 1) == 0
+  assert binary_search([1,2,33,12,400,3333,11111,10000011], 123) == -1
+
 
 def test_linear_search():
 	""" done. """
